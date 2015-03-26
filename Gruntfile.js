@@ -1,14 +1,20 @@
 module.exports = function (grunt) {
 
-    const DEFAULT_TASKS = ['browserify'];
+    const DEFAULT_TASKS = ['webpack'];
 
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
 
-        browserify: {
-            dist: {
-                files: {
-                    'dist/fluid.js': ["src/**/*.js"]
+        webpack: {
+            build: {
+                context: "./src",
+                entry: "./fluid.js",
+                output: {
+                    path: "./dist/",
+                    filename: "[name]-dist-[hash].js",
+                    library: "fluidjs",
+                    libraryTarget: "umd"
+
                 }
             }
         },
@@ -24,7 +30,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-webpack');
 
     grunt.registerTask('default', DEFAULT_TASKS);
 }

@@ -31,10 +31,9 @@ var fluid = {
     createElement: createElement
 };
 
+var isAmd = require("./_impl/amdhook.js")(fluid);
 
 
-require("./_impl/amdhook.js")(fluid);
-if ( typeof module === "object" && typeof module.exports === "object" ) {
-    module.exports = fluid;
-}
+module.exports = fluid;
+
 

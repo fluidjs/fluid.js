@@ -3,6 +3,8 @@ module.exports = function(fluid) {
         define( "fluid", [], function() {
             return fluid;
         });
+        return true;
     }
+    return false;
 }
 
