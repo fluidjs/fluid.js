@@ -3,8 +3,6 @@ function newUiElement(element) {
         throw "element " + id + " can not be found";
     }
 
-
-
     var instance = {
         '_node': element,
 
@@ -16,6 +14,14 @@ function newUiElement(element) {
             return {
                 "get": function(){
                     return element.getAttribute(attributeName);
+                },
+                "set": function (value) {
+                    element.setAttribute(attributeName, value);
+                    return instance;
+                },
+                "remove": function() {
+                    element.removeAttribute(attributeName);
+                    return instance;
                 }
             }
 
@@ -42,6 +48,21 @@ function newUiElement(element) {
                         classList.remove(className);
                     } else {
                         classList.add(className);
+                    }
+                    return instance;
+                },
+                isPresent: function() {
+                    return classList.contains(className);
+                },
+                ifPresent: function(callback) {
+                    if(classList.contains(className)) {
+                        callback();
+                    }
+                    return instance;
+                },
+                ifMissing: function(callback) {
+                    if(!classList.contains(className)) {
+                        callback();
                     }
                     return instance;
                 }

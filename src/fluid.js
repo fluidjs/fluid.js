@@ -1,23 +1,14 @@
 var createElement = require("./_impl/createElement.js");
-var newUiElement = require("./_impl/uiElementFactory.js");
-
+var newUiElement = require("./_impl/uiElement.js");
+var finder = require("./_impl/finder.js");
 
 var fluid = {
 
     find: function () {
-        return {
-            byId: function (id) {
-                return newUiElement(document.getElementById(id));
-            },
-            body: function () {
-                return newUiElement(document.body);
-            },
-            all: function (selector) {
-                // convert to normal array
-                var elementList = [].slice.call(document.querySelectorAll(selector));
-                return elementList.map(newUiElement);
-            }
-        }
+        var finders = finder(document);
+        finders.body = function () {
+            return newUiElement(document.body);
+        };
     },
 
     afterInit: function (callback) {
@@ -30,9 +21,6 @@ var fluid = {
 
     createElement: createElement
 };
-
-var isAmd = require("./_impl/amdhook.js")(fluid);
-
 
 module.exports = fluid;
 
